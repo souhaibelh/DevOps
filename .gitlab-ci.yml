@@ -10,6 +10,9 @@ spring-build-job:
     paths: 
       - $HOME/.m2/repository
       - $HOME/.m2/wrapper/dists
+  rules:
+    - changes:
+      - service-java/**/*    
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
@@ -22,6 +25,9 @@ spring-test-job:
     paths: 
       - $HOME/.m2/repository
       - $HOME/.m2/wrapper/dists  
+  rules:
+    - changes:
+      - service-java/**/*        
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml test

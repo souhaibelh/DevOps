@@ -89,6 +89,6 @@ terraform-deploy-job:
     TF_VAR_docker_username: $DOCKER_USERNAME
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
   script:
-    - echo "Starting Terraform deployment"
     - terraform init
+    - terraform import azurerm_resource_group.rg /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/microservices-rg
     - terraform apply -auto-approve

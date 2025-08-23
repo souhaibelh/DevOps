@@ -19,7 +19,7 @@ python-build-job:
     - changes:
       - service-python/**/*
   script:
-    - pip install ./service-python/requirements.txt
+    - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
 
 spring-test-job:

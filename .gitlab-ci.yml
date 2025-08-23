@@ -14,6 +14,8 @@ spring-build-job:
     - changes:
       - service-java/**/*    
   script:
+    - echo "Contents of Maven repo before build:"
+    - ls -l /root/.m2/repository
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
 

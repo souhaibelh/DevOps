@@ -48,6 +48,9 @@ docker-spring-build-job:
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind
+  rules:
+    - changes:
+        - service-java/**/*  
   variables:
     DOCKER_TLS_CERTDIR: ""
   stage: deploy
@@ -61,6 +64,9 @@ docker-python-build-job:
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind
+  rules:
+    - changes:
+        - service-python/**/*  
   variables:
     DOCKER_TLS_CERTDIR: ""
   stage: deploy

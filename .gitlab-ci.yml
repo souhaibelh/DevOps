@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - deploy
 
 spring-build-job:
   stage: build
@@ -42,3 +43,29 @@ python-test-job:
     - pip install -r ./service-python/requirements.txt
     - pip install pytest
     - pytest ./service-python/test_app.py
+
+docker-spring-build-job:
+  image: docker:28.3.3-cli
+  services:
+    - docker:28.3.3-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"     
+  stage: deploy
+  before_script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - docker build -t souhaibhassouni/spring-boot-app:1.0 -f ./service-java/spring.Dockerfile ./service-java
+    - docker push souhaibhassouni/spring-boot-app:1.0
+
+docker-python-build-job:
+  image: docker:28.3.3-cli
+  services:
+    - docker:28.3.3-dind
+  variables:
+    DOCKER_TLS_CERTDIR: "/certs"  
+  stage: deploy
+  before_script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - docker build -t souhaibhassouni/flask:1.0 -f ./service-python/flask.Dockerfile ./service-python
+    - docker push souhaibhassouni/flask:1.0  

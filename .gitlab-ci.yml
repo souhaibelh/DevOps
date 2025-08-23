@@ -2,6 +2,9 @@ stages:
   - build
   - test
 
+variables:
+  GIT_STRATEGY: fetch
+
 spring-build-job:
   stage: build
   image: eclipse-temurin:17-jdk-alpine
@@ -11,7 +14,7 @@ spring-build-job:
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
-      - .m2/repository      
+      - .m2/repository
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository compile

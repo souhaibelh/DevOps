@@ -4,20 +4,22 @@ stages:
 
 spring-build-job:
   stage: build
-  image: maven:3.9.11-eclipse-temurin-17-alpine
+  image: 3.9.11-eclipse-temurin-17-alpine
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - /root/.m2/repository       
+      - /root/.m2/repository
+      - /root/.m2/wrapper/dists
   script:
-    - mvn -f service-java/pom.xml compile
+    - ./service-java/mvnw -f service-java/pom.xml compile
 
 spring-test-job:
   stage: test
-  image: maven:3.9.11-eclipse-temurin-17-alpine
+  image: 3.9.11-eclipse-temurin-17-alpine
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - /root/.m2/repository       
+      - /root/.m2/repository
+      - /root/.m2/wrapper/dists  
   script:
-    - mvn -f service-java/pom.xml test
+    - ./service-java/mvnw -f service-java/pom.xml test

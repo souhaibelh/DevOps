@@ -1,6 +1,6 @@
 stages:
-    build
-    test
+    - build
+    - test
 
 spring-build-job:
     stage: build

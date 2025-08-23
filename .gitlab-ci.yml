@@ -17,14 +17,8 @@ python-build-job:
   image: python:3.12-slim
   rules:
     - changes:
-        - service-python/**/*
-  cache:
-    key: python-deps
-    paths:
-      - .venv/      
+        - service-python/**/* 
   script:
-    - python -m venv .venv
-    - source .venv/bin/activate
     - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
 
@@ -43,12 +37,8 @@ python-test-job:
   image: python:3.12-slim
   rules:
     - changes:
-        - service-python/**/*
-  cache:
-    key: python-deps
-    paths:
-      - .venv/      
+        - service-python/**/*  
   script:
-    - source .venv/bin/activate
+    - pip install -r ./service-python/requirements.txt
     - pip install pytest
     - pytest ./service-python/test_app.py

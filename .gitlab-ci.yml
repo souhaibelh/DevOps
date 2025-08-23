@@ -2,22 +2,25 @@ stages:
   - build
   - test
 
-variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
-
 spring-build-job:
   stage: build
   image: eclipse-temurin:17-jdk-alpine
   rules:
     - changes:
         - service-java/**/*
-  cache:
-    key: maven
-    paths:
-      - .m2/repository
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml compile
+
+python-build-job:
+  stage: build
+  image: python:3.12-slim
+  rules:
+    - changes:
+      - service-python/**/*
+  script:
+    - pip install ./service-python/requirements.txt
+    - python -m compileall ./service-python
 
 spring-test-job:
   stage: test
@@ -25,10 +28,16 @@ spring-test-job:
   rules:
     - changes:
         - service-java/**/*
-  cache:
-    key: maven
-    paths:
-      - .m2/repository
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml test
+
+python-test-job:
+  stage: test
+  image: python:3.12-slim
+  rules:
+    - changes:
+      - service-python/**/*
+  script:
+    - pip install pytest
+    - pytest ./service-python/test_app.py    

@@ -11,6 +11,7 @@ spring-build-job:
       - /root/.m2/repository
       - /root/.m2/wrapper/dists
   script:
+    - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
 
 spring-test-job:
@@ -22,4 +23,5 @@ spring-test-job:
       - /root/.m2/repository
       - /root/.m2/wrapper/dists  
   script:
+    - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml test

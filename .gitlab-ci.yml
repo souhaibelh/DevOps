@@ -8,8 +8,8 @@ spring-build-job:
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - /root/.m2/repository
-      - /root/.m2/wrapper/dists
+      - $HOME/.m2/repository
+      - $HOME/.m2/wrapper/dists
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
@@ -20,8 +20,8 @@ spring-test-job:
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - /root/.m2/repository
-      - /root/.m2/wrapper/dists  
+      - $HOME/.m2/repository
+      - $HOME/.m2/wrapper/dists  
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml test

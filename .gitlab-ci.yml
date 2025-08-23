@@ -1,37 +1,42 @@
+variables:
+  MAVEN_USER_HOME: $CI_PROJECT_DIR/.m2
+
 stages:
   - build
   - test
 
 spring-build-job:
   stage: build
-  image: eclipse-temurin:17-jdk-alpine
+  image:
+    name: eclipse-temurin:17-jdk-alpine
+    pull_policy: if-not-present
   cache:
-    key: "$CI_COMMIT_REF_SLUG-maven"
-    paths: 
-      - /root/.m2/repository
-      - /root/.m2/wrapper/dists
+    key: maven
+    paths:
+      - .m2/repository
+      - .m2/wrapper/dists
     policy: pull-push
   rules:
     - changes:
-      - service-java/**/*    
+        - service-java/**/*    
   script:
-    - echo "Contents of Maven repo before build:"
-    - if [ -d /root/.m2/repository ]; then ls -l /root/.m2/repository; else echo "Folder does not exist"; fi
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
 
 spring-test-job:
   stage: test
-  image: eclipse-temurin:17-jdk-alpine
+  image:
+    name: eclipse-temurin:17-jdk-alpine
+    pull_policy: if-not-present
   cache:
-    key: "$CI_COMMIT_REF_SLUG-maven"
-    paths: 
-      - /root/.m2/repository
-      - /root/.m2/wrapper/dists
-    policy: pull-push  
+    key: maven
+    paths:
+      - .m2/repository
+      - .m2/wrapper/dists
+    policy: pull-push
   rules:
     - changes:
-      - service-java/**/*        
+        - service-java/**/*        
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml test

@@ -81,9 +81,6 @@ terraform-deploy-job:
     name: hashicorp/terraform:1.6.5
     entrypoint: [""]
   stage: deploy
-  needs:
-    - docker-python-build-job
-    - docker-spring-build-job
   variables:
     ARM_CLIENT_ID: $AZURE_CLIENT_ID
     ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET

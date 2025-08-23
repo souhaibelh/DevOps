@@ -10,7 +10,7 @@ spring-build-job:
     paths: 
       - /root/.m2/repository       
   script:
-    - ./service-java/mvnw -f service-java/pom.xml compile
+    - mvn -f service-java/pom.xml compile
 
 spring-test-job:
   stage: test
@@ -20,4 +20,4 @@ spring-test-job:
     paths: 
       - /root/.m2/repository       
   script:
-    - ./service-java/mvnw -f service-java/pom.xml test
+    - mvn -f service-java/pom.xml test

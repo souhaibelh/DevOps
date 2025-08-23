@@ -10,6 +10,7 @@ spring-build-job:
     paths: 
       - /root/.m2/repository
       - /root/.m2/wrapper/dists
+    policy: pull-push
   rules:
     - changes:
       - service-java/**/*    
@@ -26,7 +27,8 @@ spring-test-job:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
       - /root/.m2/repository
-      - /root/.m2/wrapper/dists  
+      - /root/.m2/wrapper/dists
+    policy: pull-push  
   rules:
     - changes:
       - service-java/**/*        

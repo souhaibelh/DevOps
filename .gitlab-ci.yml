@@ -91,4 +91,6 @@ terraform-deploy-job:
   script:
     - terraform init
     - terraform import azurerm_resource_group.rg /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/microservices-rg
+    - terraform import azurerm_container_group.microservices /subscriptions/$AZURE_SUBSCRIPTION_ID>/resourceGroups/microservices-rg/providers/Microsoft.ContainerInstance/containerGroups/microservices-group
+
     - terraform apply -auto-approve

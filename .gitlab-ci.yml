@@ -47,7 +47,8 @@ python-test-job:
 docker-spring-build-job:
   image: docker:28.3.3-cli
   services:
-    - docker:28.3.3-dind
+    - name: docker:28.3.3-dind
+      privileged: true
   variables:
     DOCKER_TLS_CERTDIR: "/certs"     
   stage: deploy
@@ -60,7 +61,8 @@ docker-spring-build-job:
 docker-python-build-job:
   image: docker:28.3.3-cli
   services:
-    - docker:28.3.3-dind
+    - name: docker:28.3.3-dind
+      privileged: true
   variables:
     DOCKER_TLS_CERTDIR: "/certs"  
   stage: deploy

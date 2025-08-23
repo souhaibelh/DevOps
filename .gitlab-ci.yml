@@ -77,7 +77,9 @@ docker-python-build-job:
     - docker push $DOCKER_USERNAME/flask:1.0
 
 terraform-deploy-job:
-  image: hashicorp/terraform:1.6.5
+  image: 
+    name: hashicorp/terraform:1.6.5
+    entrypoint: [""]
   stage: deploy
   needs:
     - docker-python-build-job

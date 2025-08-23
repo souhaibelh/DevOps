@@ -90,7 +90,4 @@ terraform-deploy-job:
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
   script:
     - terraform init
-    - terraform import azurerm_resource_group.rg /subscriptions/$AZURE_SUBSCRIPTION_ID/resourceGroups/microservices-rg
-    - terraform import azurerm_container_group.microservices /subscriptions/$AZURE_SUBSCRIPTION_ID>/resourceGroups/microservices-rg/providers/Microsoft.ContainerInstance/containerGroups/microservices-group
-
     - terraform apply -auto-approve

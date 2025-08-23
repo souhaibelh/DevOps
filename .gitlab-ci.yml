@@ -17,7 +17,7 @@ python-build-job:
   image: python:3.12-slim
   rules:
     - changes:
-      - service-python/**/*
+        - service-python/**/*
   script:
     - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
@@ -37,7 +37,7 @@ python-test-job:
   image: python:3.12-slim
   rules:
     - changes:
-      - service-python/**/*
+        - service-python/**/*
   script:
     - pip install pytest
-    - pytest ./service-python/test_app.py    
+    - pytest ./service-python/test_app.py

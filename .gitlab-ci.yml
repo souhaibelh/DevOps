@@ -19,7 +19,7 @@ spring-build-job:
         - service-java/**/*    
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f service-java/pom.xml compile
+      - ./service-java/mvnw -f service-java/pom.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository compile
 
 spring-test-job:
   stage: test
@@ -35,4 +35,4 @@ spring-test-job:
         - service-java/**/*        
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f service-java/pom.xml test
+      - ./service-java/mvnw -f service-java/pom.xml -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository test

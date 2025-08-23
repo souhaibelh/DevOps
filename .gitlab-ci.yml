@@ -90,5 +90,6 @@ terraform-deploy-job:
     TF_VAR_docker_username: $DOCKER_USERNAME
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
   script:
+    - echo "Starting Terraform deployment"
     - terraform init
     - terraform apply -auto-approve

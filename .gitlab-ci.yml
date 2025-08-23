@@ -2,17 +2,9 @@ stages:
   - build
   - test
 
-variables:
-  MAVEN_OPTS: "-Dmaven.repo.local=${CI_CACHE_DIR}/.m2/repository"
-
 spring-build-job:
   stage: build
   image: eclipse-temurin:17-jdk-alpine
-  cache:
-    key: maven
-    paths:
-      - ${CI_CACHE_DIR}/.m2/repository
-      - ${CI_CACHE_DIR}/.m2/wrapper/dists
   rules:
     - changes:
         - service-java/**/*
@@ -23,11 +15,6 @@ spring-build-job:
 spring-test-job:
   stage: test
   image: eclipse-temurin:17-jdk-alpine
-  cache:
-    key: maven
-    paths:
-      - ${CI_CACHE_DIR}/.m2/repository
-      - ${CI_CACHE_DIR}/.m2/wrapper/dists
   rules:
     - changes:
         - service-java/**/*

@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 @app.route("/api/message")
 def message():
+    # adding comment to test if job will run for service-java
     return jsonify({"message": "Hello from Flask!"})
 
 if __name__ == "__main__":

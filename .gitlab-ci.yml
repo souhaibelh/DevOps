@@ -52,8 +52,8 @@ docker-spring-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - docker build -t souhaibhassouni/spring-boot-app:1.0 -f ./service-java/spring.Dockerfile ./service-java
-    - docker push souhaibhassouni/spring-boot-app:1.0
+    - docker build -t $DOCKER_USERNAME/spring-boot-app:1.0 -f ./service-java/spring.Dockerfile ./service-java
+    - docker push $DOCKER_USERNAME/spring-boot-app:1.0
 
 docker-python-build-job:
   image: docker:28.3.3-cli
@@ -63,5 +63,5 @@ docker-python-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - docker build -t souhaibhassouni/flask:1.0 -f ./service-python/flask.Dockerfile ./service-python
-    - docker push souhaibhassouni/flask:1.0  
+    - docker build -t $DOCKER_USERNAME/flask:1.0 -f ./service-python/flask.Dockerfile ./service-python
+    - docker push $DOCKER_USERNAME/flask:1.0  

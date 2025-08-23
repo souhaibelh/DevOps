@@ -15,7 +15,7 @@ spring-build-job:
       - service-java/**/*    
   script:
     - echo "Contents of Maven repo before build:"
-    - ls -l /root/.m2/repository
+    - if [ -d /root/.m2/repository ]; then ls -l /root/.m2/repository; else echo "Folder does not exist"; fi
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f service-java/pom.xml compile
 

@@ -8,8 +8,8 @@ spring-build-job:
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - $HOME/.m2/repository
-      - $HOME/.m2/wrapper/dists
+      - /root/.m2/repository
+      - /root/.m2/wrapper/dists
   rules:
     - changes:
       - service-java/**/*    
@@ -23,8 +23,8 @@ spring-test-job:
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
-      - $HOME/.m2/repository
-      - $HOME/.m2/wrapper/dists  
+      - /root/.m2/repository
+      - /root/.m2/wrapper/dists  
   rules:
     - changes:
       - service-java/**/*        

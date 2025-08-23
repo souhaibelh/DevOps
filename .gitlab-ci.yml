@@ -14,7 +14,6 @@ spring-build-job:
     paths:
       - .m2/repository
       - .m2/wrapper/dists
-    policy: pull-push
   rules:
     - changes:
         - service-java/**/*    
@@ -31,7 +30,6 @@ spring-test-job:
     paths:
       - .m2/repository
       - .m2/wrapper/dists
-    policy: pull-push
   rules:
     - changes:
         - service-java/**/*        

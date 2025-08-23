@@ -45,9 +45,9 @@ python-test-job:
     - pytest ./service-python/test_app.py
 
 docker-spring-build-job:
-  image: docker
+  image: docker:28.3.3-cli
   services:
-    - dind
+    - docker:dind
   variables:
     DOCKER_TLS_CERTDIR: "/cert"
   stage: deploy

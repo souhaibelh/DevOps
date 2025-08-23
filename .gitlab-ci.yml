@@ -68,4 +68,21 @@ docker-python-build-job:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
     - docker build -t $DOCKER_USERNAME/flask:1.0 -f ./service-python/flask.Dockerfile ./service-python
-    - docker push $DOCKER_USERNAME/flask:1.0    
+    - docker push $DOCKER_USERNAME/flask:1.0
+
+terraform-deploy-job:
+  image: hashicorp/terraform:1.6.5
+  stage: deploy
+  needs:
+    - docker-python-build-job
+    - docker-spring-build-job
+  variables:
+    ARM_CLIENT_ID: $AZURE_CLIENT_ID
+    ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET
+    ARM_TENANT_ID: $AZURE_TENANT_ID
+    ARM_SUBSCRIPTION_ID: $AZURE_SUBSCRIPTION_ID
+    TF_VAR_docker_username: $DOCKER_USERNAME
+    TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
+  script:
+    - terraform init
+    - terraform apply -auto-approve

@@ -4,7 +4,7 @@ stages:
 
 spring-build-job:
   stage: build
-  image: openjdk:17
+  image: eclipse-temurin:17-jdk-alpine
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 
@@ -14,7 +14,7 @@ spring-build-job:
 
 spring-test-job:
   stage: test
-  image: openjdk:17
+  image: eclipse-temurin:17-jdk-alpine
   cache:
     key: "$CI_COMMIT_REF_SLUG-maven"
     paths: 

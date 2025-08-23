@@ -1,0 +1,22 @@
+services:
+  spring:
+    image: spring-boot-app:1.0
+    build:
+      context: ./service-java
+      dockerfile: spring.Dockerfile
+    container_name: spring
+    ports:
+      - "8080:8080"
+    environment:
+      FLASK_URL: http://flask:5000
+    depends_on:
+      - flask
+    pull_policy: never  
+
+  flask:
+    image: flask-service:1.0
+    build:
+      context: ./service-python
+      dockerfile: flask.Dockerfile
+    container_name: flask
+    pull_policy: never

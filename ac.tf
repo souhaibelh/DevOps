@@ -1,6 +1,8 @@
+variable "docker_username" {}
+variable "docker_password" {}
+
 provider "azurerm" {
   features {}
-  subscription_id = "a8930602-911f-4a4f-9ca1-d48690c726b8"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -18,8 +20,8 @@ resource "azurerm_container_group" "microservices" {
 
     image_registry_credential {
         server   = "index.docker.io"
-        username = "souhaibhassouni"
-        password = "dckr_pat_UmF4NyGgXosfY6cg-OC3CVJ2qUI"
+        username = var.docker_username
+        password = var.docker_password
     }
 
     container {

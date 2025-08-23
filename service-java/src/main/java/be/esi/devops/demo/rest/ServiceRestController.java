@@ -16,6 +16,7 @@ public class ServiceRestController {
 
     @GetMapping("/proxy")
     public ResponseEntity<String> getMessageFromFlask() {
+        System.out.println("Testing the pipeline execution and caching");
         System.out.println("The flask url being used is: " + flaskUrl);
         try {
             RestTemplate restTemplate = new RestTemplate();

@@ -113,8 +113,6 @@ terraform-deploy-job:
     - changes:
         - service-python/**/*   
         - service-java/**/*
-  artifacts:
-    when: never      
   variables:
     ARM_CLIENT_ID: $AZURE_CLIENT_ID
     ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET

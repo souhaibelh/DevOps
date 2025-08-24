@@ -16,7 +16,7 @@ class FlaskAppTestCase(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         
         # Vérifie que la réponse JSON est correcte
-        expected_data = {"message": "Hello from wtf!"}
+        expected_data = {"message": "Hello from flask!"}
         self.assertEqual(response.get_json(), expected_data)
 
 if __name__ == '__main__':

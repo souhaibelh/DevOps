@@ -3,8 +3,15 @@ variable "docker_password" {}
 variable "dns_name" {}
 variable "java_image_name" {}
 variable "python_image_name" {}
-variable "java_tag" {}
-variable "python_tag" {}
+variable "java_tag" {
+  type    = string
+  default = "latest"
+}
+
+variable "python_tag" {
+  type    = string
+  default = "latest"
+}
 
 provider "azurerm" {
   features {}
@@ -31,7 +38,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "springboot"
-        image = "${var.docker_username}/${var.java_image_name}:latest"
+        image = "${var.docker_username}/${var.java_image_name}:${var.java_tag}"
         cpu = "0.5"
         memory = "1.5"
 
@@ -47,7 +54,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "flask"
-        image = "${var.docker_username}/${var.python_image_name}:latest"
+        image = "${var.docker_username}/${var.python_image_name}:${var.python_tag}"
         cpu = "0.5"
         memory = "1.5"
 

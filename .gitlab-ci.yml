@@ -46,6 +46,8 @@ spring-test-job:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies -Dmaven.build.directory=/cache/target"    
   script:
     - chmod +x ./service-java/mvnw
+    - ls -la /cache/target/ || echo "Cache target directory doesn't exist!"
+    - ls -la /cache/ || echo "Cache directory doesn't exist!"
     - ./service-java/mvnw -f ./service-java/pom.xml test
 
 python-test-job:

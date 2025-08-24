@@ -62,8 +62,8 @@ docker-spring-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - docker build -t $DOCKER_USERNAME/spring-boot-app:1.0 -f ./service-java/spring.Dockerfile ./service-java
-    - docker push $DOCKER_USERNAME/spring-boot-app:1.0
+    - docker build -t $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG -f ./service-java/spring.Dockerfile ./service-java
+    - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG
 
 docker-python-build-job:
   stage: docker-build
@@ -78,8 +78,8 @@ docker-python-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - docker build -t $DOCKER_USERNAME/flask:1.0 -f ./service-python/flask.Dockerfile ./service-python
-    - docker push $DOCKER_USERNAME/flask:1.0
+    - docker build -t $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG -f ./service-python/flask.Dockerfile ./service-python
+    - docker push $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG
 
 terraform-deploy-job:
   image: 
@@ -97,6 +97,12 @@ terraform-deploy-job:
     ARM_SUBSCRIPTION_ID: $AZURE_SUBSCRIPTION_ID
     TF_VAR_docker_username: $DOCKER_USERNAME
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
+    TF_VAR_dns_name: $DNS_NAME
+    TF_VAR_java_image_name: $JAVA_IMAGE_NAME
+    TF_VAR_python_image_name: $PYTHON_IMAGE_NAME
+    TF_VAR_java_tag: $JAVA_TAG
+    TF_VAR_python_tag: $PYTHON_TAG
+
   script:
     - terraform init
     - terraform apply -auto-approve

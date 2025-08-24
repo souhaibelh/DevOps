@@ -95,4 +95,5 @@ terraform-deploy-job:
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
   script:
     - terraform init
+    - terraform plan
     - terraform apply -auto-approve

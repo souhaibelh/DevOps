@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/api/message")
 def message():
-    # adding comment to test if job will idkidk aaadsssddddddaaa deewwdasddd-asd
+    # adding comment to test if job will idkidk aaadsssdlldddddaaa deewwdasddd-asd
     return jsonify({"message": "Hello from wtf!"})
 
 if __name__ == "__main__":

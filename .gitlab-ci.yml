@@ -82,9 +82,6 @@ terraform-deploy-job:
     name: hashicorp/terraform:1.6.5
     entrypoint: [""]
   stage: deploy
-  needs:
-    - job: docker-spring-build-job
-    - job: docker-python-build-job
   rules:
     - changes:
         - service-python/**/*   

@@ -79,7 +79,7 @@ docker-spring-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - docker build -t $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG -f ./service-java/spring.Dockerfile ./service-java
+    - docker build -t $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG -f ./service-java/spring-pipeline-optimized.Dockerfile ./service-java
     - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG
     - docker tag $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest
     - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest

@@ -15,7 +15,9 @@ spring-build-job:
     - changes:
         - service-java/**/*
       variables:
-        JAVA_TAG: $CI_COMMIT_SHA    
+        JAVA_TAG: $CI_COMMIT_SHA
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"      
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml compile
@@ -38,6 +40,8 @@ spring-test-job:
   rules:
     - changes:
         - service-java/**/*
+  variables:
+    MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"        
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml test

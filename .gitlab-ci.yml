@@ -82,7 +82,7 @@ docker-python-build-job:
   script:
     - docker build -t $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG -f ./service-java/spring.Dockerfile ./service-java
     - docker push $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG
-    - docker tag $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest
+    - docker tag $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:latest
     - docker push $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:latest
 
 terraform-deploy-job:

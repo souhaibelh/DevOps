@@ -104,6 +104,8 @@ terraform-deploy-job:
     TF_VAR_dns_name: $DNS_NAME
     TF_VAR_java_image_name: $JAVA_IMAGE_NAME
     TF_VAR_python_image_name: $PYTHON_IMAGE_NAME
+    TF_VAR_java_tag: $JAVA_TAG
+    TF_VAR_python_tag: $PYTHON_TAG
 
   script:
     - terraform init

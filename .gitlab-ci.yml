@@ -15,9 +15,102 @@ spring-build-job:
     - changes:
         - service-java/**/*
       variables:
-        JAVA_TAG: $CI_COMMIT_SHA
+        JAVA_TAG: $CI_COMMIT_SHA    
   script:
-    - chmod +x ./service-java/mvnw          
-    - mkdir -p /cache/mvn-dependencies     
-    - echo "Running Maven compile..."
-    - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=/cache/mvn-dependencies
+    - chmod +x ./service-java/mvnw
+    - ./service-java/mvnw -f ./service-java/pom.xml compile
+
+python-build-job:
+  stage: build
+  image: python:3.12-slim
+  rules:
+    - changes:
+        - service-python/**/*
+      variables:
+        PYTHON_TAG: $CI_COMMIT_SHA  
+  script:
+    - pip install -r ./service-python/requirements.txt
+    - python -m compileall ./service-python
+
+spring-test-job:
+  stage: test
+  image: eclipse-temurin:17-jdk-alpine
+  rules:
+    - changes:
+        - service-java/**/*
+  script:
+    - chmod +x ./service-java/mvnw
+    - ./service-java/mvnw -f ./service-java/pom.xml test
+
+python-test-job:
+  stage: test
+  image: python:3.12-slim
+  rules:
+    - changes:
+        - service-python/**/*  
+  script:
+    - pip install -r ./service-python/requirements.txt
+    - pip install pytest
+    - pytest ./service-python/test_app.py
+
+docker-spring-build-job:
+  stage: docker-build
+  image: docker:28.3.3-cli
+  services:
+    - docker:28.3.3-dind
+  rules:
+    - changes:
+        - service-java/**/*  
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - docker build -t $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG -f ./service-java/spring.Dockerfile ./service-java
+    - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG
+    - docker tag $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest
+    - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest
+
+docker-python-build-job:
+  stage: docker-build
+  image: docker:28.3.3-cli
+  services:
+    - docker:28.3.3-dind
+  rules:
+    - changes:
+        - service-python/**/*  
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  before_script:
+    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+  script:
+    - docker build -t $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG -f ./service-python/flask.Dockerfile ./service-python
+    - docker push $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG
+    - docker tag $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:$PYTHON_TAG $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:latest
+    - docker push $DOCKER_USERNAME/$PYTHON_IMAGE_NAME:latest
+
+terraform-deploy-job:
+  image: 
+    name: hashicorp/terraform:1.6.5
+    entrypoint: [""]
+  stage: deploy
+  rules:
+    - changes:
+        - service-python/**/*   
+        - service-java/**/* 
+  variables:
+    ARM_CLIENT_ID: $AZURE_CLIENT_ID
+    ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET
+    ARM_TENANT_ID: $AZURE_TENANT_ID
+    ARM_SUBSCRIPTION_ID: $AZURE_SUBSCRIPTION_ID
+    TF_VAR_docker_username: $DOCKER_USERNAME
+    TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
+    TF_VAR_dns_name: $DNS_NAME
+    TF_VAR_java_image_name: $JAVA_IMAGE_NAME
+    TF_VAR_python_image_name: $PYTHON_IMAGE_NAME
+    TF_VAR_java_tag: $JAVA_TAG
+    TF_VAR_python_tag: $PYTHON_TAG
+
+  script:
+    - terraform init
+    - terraform apply -auto-approve

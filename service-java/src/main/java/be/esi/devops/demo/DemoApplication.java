@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Testing pipeline");
+		System.out.println("Testing pipelinesss");
 		SpringApplication.run(DemoApplication.class, args);
 	}
 

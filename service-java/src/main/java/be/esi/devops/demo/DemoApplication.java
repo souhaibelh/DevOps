@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Testing je sais psa ce que je fais la lol");
+		System.out.println("Testing jsss");
 		SpringApplication.run(DemoApplication.class, args);
 	}
 

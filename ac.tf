@@ -31,7 +31,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "springboot"
-        image = "souhaibhassouni/spring-boot-app:1.0"
+        image = "${var.docker_username}/${var.java-image-name}:${var.java-tag}"
         cpu = "0.5"
         memory = "1.5"
 
@@ -47,7 +47,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "flask"
-        image = "souhaibhassouni/flask:1.0"
+        image = "${var.docker_username}/${var.python-image-name}:${var.python-tag}"
         cpu = "0.5"
         memory = "1.5"
 

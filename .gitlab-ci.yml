@@ -4,6 +4,10 @@ stages:
   - docker-build
   - deploy
 
+variables:
+  JAVA_TAG: $CI_COMMIT_SHA
+  PYTHON_TAG: $CI_COMMIT_SHA
+
 spring-build-job:
   stage: build
   image: eclipse-temurin:17-jdk-alpine
@@ -95,5 +99,4 @@ terraform-deploy-job:
     TF_VAR_docker_password: $DOCKER_TERRAFORM_PASSWORD
   script:
     - terraform init
-    - terraform plan
     - terraform apply -auto-approve

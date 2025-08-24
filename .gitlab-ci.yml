@@ -84,9 +84,11 @@ terraform-deploy-job:
   stage: deploy
   needs:
     - job: docker-spring-build-job
-      optional: true
     - job: docker-python-build-job
-      optional: true
+  rules:
+    - changes:
+        - service-python/**/*   
+        - service-java/**/* 
   variables:
     ARM_CLIENT_ID: $AZURE_CLIENT_ID
     ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET

@@ -55,6 +55,7 @@ spring-test-job:
 python-test-job:
   stage: test
   image: python:3.12-slim
+  dependencies: []
   rules:
     - changes:
         - service-python/**/*
@@ -88,6 +89,7 @@ docker-spring-build-job:
 docker-python-build-job:
   stage: docker-build
   image: docker:28.3.3-cli
+  dependencies: []
   services:
     - docker:28.3.3-dind
   rules:

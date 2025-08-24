@@ -16,10 +16,6 @@ spring-build-job:
         - service-java/**/*
       variables:
         JAVA_TAG: $CI_COMMIT_SHA
-  cache:
-    key: maven
-    paths:
-      - /cache/mvn-dependencies
   script:
     - chmod +x ./service-java/mvnw          
     - mkdir -p /cache/mvn-dependencies     

@@ -20,7 +20,7 @@ spring-build-job:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"      
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml clean package -DskipTests
+    - ./service-java/mvnw -f ./service-java/pom.xml package -DskipTests
   artifacts:
     paths:
       - service-java/target  
@@ -81,7 +81,6 @@ docker-spring-build-job:
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
-    - ls -la ./service-java/target
     - docker build -t $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG -f ./service-java/spring-pipeline-optimized.Dockerfile ./service-java
     - docker push $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG
     - docker tag $DOCKER_USERNAME/$JAVA_IMAGE_NAME:$JAVA_TAG $DOCKER_USERNAME/$JAVA_IMAGE_NAME:latest
@@ -113,7 +112,9 @@ terraform-deploy-job:
   rules:
     - changes:
         - service-python/**/*   
-        - service-java/**/* 
+        - service-java/**/*
+  artifacts:
+    when: never      
   variables:
     ARM_CLIENT_ID: $AZURE_CLIENT_ID
     ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET

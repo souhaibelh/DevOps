@@ -21,5 +21,7 @@ spring-build-job:
     paths:
       - /cache/mvn-dependencies
   script:
-    - mkdir -p /cache/mvn-dependencies
+    - chmod +x ./service-java/mvnw          
+    - mkdir -p /cache/mvn-dependencies     
+    - echo "Running Maven compile..."
     - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=/cache/mvn-dependencies

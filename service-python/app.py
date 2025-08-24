@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/api/message")
 def message():
-    # adding comment to test if job will run for asddd-asd
+    # adding comment to test if job will rsssun for asddd-asd
     return jsonify({"message": "Hello from Flaskyyy!"})
 
 if __name__ == "__main__":

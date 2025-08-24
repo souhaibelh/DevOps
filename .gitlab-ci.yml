@@ -21,10 +21,6 @@ spring-build-job:
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml compile
-  artifacts:
-    paths:
-      - ./service-java/target/*.jar
-    expire_in: 1 week  
 
 python-build-job:
   stage: build
@@ -49,8 +45,6 @@ spring-test-job:
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml test
-  dependencies:
-    - spring-build-job  
 
 python-test-job:
   stage: test

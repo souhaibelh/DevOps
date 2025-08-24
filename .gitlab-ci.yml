@@ -30,6 +30,8 @@ python-build-job:
         - service-python/**/*
       variables:
         PYTHON_TAG: $CI_COMMIT_SHA  
+  variables:
+    PIP_CACHE_DIR: /cache/pip      
   script:
     - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
@@ -51,7 +53,9 @@ python-test-job:
   image: python:3.12-slim
   rules:
     - changes:
-        - service-python/**/*  
+        - service-python/**/*
+  variables:
+    PIP_CACHE_DIR: /cache/pip      
   script:
     - pip install -r ./service-python/requirements.txt
     - pip install pytest

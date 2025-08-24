@@ -1,5 +1,10 @@
 variable "docker_username" {}
 variable "docker_password" {}
+variable "dns_name" {}
+variable "java-image-name" {}
+variable "python-image-name" {}
+variable "java-tag" {}
+variable "python-tag" {}
 
 provider "azurerm" {
   features {}
@@ -16,7 +21,7 @@ resource "azurerm_container_group" "microservices" {
     resource_group_name = azurerm_resource_group.rg.name
     os_type = "Linux"
     ip_address_type = "Public"
-    dns_name_label = "61610devops"
+    dns_name_label = var.dns_name
 
     image_registry_credential {
         server   = "index.docker.io"

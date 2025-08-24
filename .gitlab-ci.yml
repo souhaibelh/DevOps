@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - docker-build
   - deploy
 
 spring-build-job:
@@ -45,7 +46,7 @@ python-test-job:
     - pytest ./service-python/test_app.py
 
 docker-spring-build-job:
-  stage: deploy
+  stage: docker-build
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind
@@ -61,7 +62,7 @@ docker-spring-build-job:
     - docker push $DOCKER_USERNAME/spring-boot-app:1.0
 
 docker-python-build-job:
-  stage: deploy
+  stage: docker-build
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind

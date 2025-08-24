@@ -1,6 +1,7 @@
 stages:
   - build
   - test
+  - docker-build
   - deploy
 
 spring-build-job:
@@ -18,7 +19,7 @@ python-build-job:
   image: python:3.12-slim
   rules:
     - changes:
-        - service-python/**/* 
+        - service-python/**/*
   script:
     - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
@@ -45,6 +46,7 @@ python-test-job:
     - pytest ./service-python/test_app.py
 
 docker-spring-build-job:
+  stage: deploy
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind
@@ -53,7 +55,6 @@ docker-spring-build-job:
         - service-java/**/*  
   variables:
     DOCKER_TLS_CERTDIR: ""
-  stage: deploy
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
@@ -61,6 +62,7 @@ docker-spring-build-job:
     - docker push $DOCKER_USERNAME/spring-boot-app:1.0
 
 docker-python-build-job:
+  stage: deploy
   image: docker:28.3.3-cli
   services:
     - docker:28.3.3-dind
@@ -69,7 +71,6 @@ docker-python-build-job:
         - service-python/**/*  
   variables:
     DOCKER_TLS_CERTDIR: ""
-  stage: deploy
   before_script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
   script:
@@ -81,6 +82,11 @@ terraform-deploy-job:
     name: hashicorp/terraform:1.6.5
     entrypoint: [""]
   stage: deploy
+  needs:
+    - job: docker-spring-build-job
+      optional: true
+    - job: docker-python-build-job
+      optional: true
   variables:
     ARM_CLIENT_ID: $AZURE_CLIENT_ID
     ARM_CLIENT_SECRET: $AZURE_CLIENT_SECRET

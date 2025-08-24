@@ -20,7 +20,7 @@ spring-build-job:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"      
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml compile
+    - ./service-java/mvnw -f ./service-java/pom.xml clean package -DskipTests
   artifacts:
     paths:
       - service-java/target  

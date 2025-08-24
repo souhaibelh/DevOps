@@ -18,7 +18,8 @@ spring-build-job:
         JAVA_TAG: $CI_COMMIT_SHA
   cache:
     key: maven
-    paths: "/cache/mvn-dependencies"
+    paths:
+      - cache/mvn-dependencies
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=/cache/mvn-dependencies
+    - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=cache/mvn-dependencies

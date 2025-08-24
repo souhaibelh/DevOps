@@ -21,6 +21,9 @@ spring-build-job:
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml compile
+  artifacts:
+    paths:
+      - service-java/target  
 
 python-build-job:
   stage: build

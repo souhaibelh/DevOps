@@ -1,7 +1,6 @@
 stages:
   - build
   - test
-  - docker-build
   - deploy
 
 spring-build-job:

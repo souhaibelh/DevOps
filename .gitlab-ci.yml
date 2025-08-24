@@ -74,6 +74,8 @@ docker-spring-build-job:
   rules:
     - changes:
         - service-java/**/*  
+  dependencies:
+    - spring-build-job      
   variables:
     DOCKER_TLS_CERTDIR: ""
   before_script:

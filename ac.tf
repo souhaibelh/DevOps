@@ -1,10 +1,10 @@
 variable "docker_username" {}
 variable "docker_password" {}
 variable "dns_name" {}
-variable "java-image-name" {}
-variable "python-image-name" {}
-variable "java-tag" {}
-variable "python-tag" {}
+variable "java_image_name" {}
+variable "python_image_name" {}
+variable "java_tag" {}
+variable "python_tag" {}
 
 provider "azurerm" {
   features {}

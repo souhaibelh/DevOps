@@ -20,7 +20,11 @@ spring-build-job:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"      
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml compile
+    - ./service-java/mvnw -f ./service-java/pom.xml package -DskipTests
+  artifacts:
+    paths:
+      - service-java/target/*.jar
+    expire_in: 1 week    
 
 python-build-job:
   stage: build
@@ -39,12 +43,15 @@ python-build-job:
 spring-test-job:
   stage: test
   image: eclipse-temurin:17-jdk-alpine
+  dependencies:
+    - spring-build-job
   rules:
     - changes:
         - service-java/**/*
   variables:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"        
   script:
+    - ls -la service-java/target/
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml test
 

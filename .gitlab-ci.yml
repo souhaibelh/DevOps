@@ -19,16 +19,7 @@ spring-build-job:
   cache:
     key: maven
     paths:
-      - cache/mvn-dependencies
+      - /cache/mvn-dependencies
   script:
-    - echo "📂 Current directory:"
-    - pwd
-    - echo "📂 Listing current directory:"
-    - ls -lah
-    - echo "📂 Parent directory:"
-    - cd ..
-    - pwd
-    - ls -lah
-    - cd -   # go back to original working dir
-    - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=cache/mvn-dependencies
+    - mkdir -p /cache/mvn-dependencies
+    - ./service-java/mvnw -f ./service-java/pom.xml compile -Dmaven.repo.local=/cache/mvn-dependencies

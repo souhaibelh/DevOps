@@ -5,8 +5,8 @@ stages:
   - deploy
 
 variables:
-  JAVA_TAG: $CI_COMMIT_SHA
-  PYTHON_TAG: $CI_COMMIT_SHA
+  JAVA_TAG: "latest"
+  PYTHON_TAG: "latest"
 
 spring-build-job:
   stage: build
@@ -14,6 +14,8 @@ spring-build-job:
   rules:
     - changes:
         - service-java/**/*
+      variables:
+        JAVA_TAG: $CI_COMMIT_SHA    
   script:
     - chmod +x ./service-java/mvnw
     - ./service-java/mvnw -f ./service-java/pom.xml compile
@@ -24,6 +26,8 @@ python-build-job:
   rules:
     - changes:
         - service-python/**/*
+      variables:
+        PYTHON_TAG: $CI_COMMIT_SHA  
   script:
     - pip install -r ./service-python/requirements.txt
     - python -m compileall ./service-python
@@ -104,6 +108,8 @@ terraform-deploy-job:
     TF_VAR_dns_name: $DNS_NAME
     TF_VAR_java_image_name: $JAVA_IMAGE_NAME
     TF_VAR_python_image_name: $PYTHON_IMAGE_NAME
+    TF_VAR_java_tag: $JAVA_TAG
+    TF_VAR_python_tag: $PYTHON_TAG
 
   script:
     - terraform init

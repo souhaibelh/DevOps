@@ -45,8 +45,6 @@ spring-test-job:
   rules:
     - changes:
         - service-java/**/*
-  dependencies:
-    - spring-build-job
   variables:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"        
   script:
@@ -125,7 +123,7 @@ terraform-deploy-job:
     TF_VAR_python_image_name: $PYTHON_IMAGE_NAME
     TF_VAR_java_tag: $JAVA_TAG
     TF_VAR_python_tag: $PYTHON_TAG
-
+  dependencies:
   script:
     - terraform -chdir=terraform init
     - terraform -chdir=terraform apply -auto-approve

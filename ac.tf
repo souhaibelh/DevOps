@@ -31,7 +31,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "springboot"
-        image = "${var.docker_username}/${var.java-image-name}:${var.java-tag}"
+        image = "${var.docker_username}/${var.java_image_name}:latest"
         cpu = "0.5"
         memory = "1.5"
 
@@ -47,7 +47,7 @@ resource "azurerm_container_group" "microservices" {
 
     container {
         name = "flask"
-        image = "${var.docker_username}/${var.python-image-name}:${var.python-tag}"
+        image = "${var.docker_username}/${var.python_image_name}:latest"
         cpu = "0.5"
         memory = "1.5"
 

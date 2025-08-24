@@ -45,11 +45,13 @@ spring-test-job:
   rules:
     - changes:
         - service-java/**/*
+  dependencies:
+    - spring-build-job
   variables:
     MAVEN_OPTS: "-Dmaven.repo.local=/cache/mvn-dependencies"        
   script:
     - chmod +x ./service-java/mvnw
-    - ./service-java/mvnw -f ./service-java/pom.xml test
+    - ./service-java/mvnw -f ./service-java/pom.xml test -DskipCompile=true
 
 python-test-job:
   stage: test

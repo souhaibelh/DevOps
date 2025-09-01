@@ -12,6 +12,7 @@ variables:
 sonarqube-test:
   stage: sonarqube
   image: sonarsource/sonar-scanner-cli
+  dependencies: []
   script: 
     - sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java/src,service-python
 

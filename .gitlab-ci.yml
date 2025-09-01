@@ -13,7 +13,7 @@ sonarqube-test:
   stage: sonarqube
   image: sonarsource/sonar-scanner-cli
   script: 
-    - sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java/src,service-python
+    - sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java/src,service-python
 
 spring-build-job:
   stage: build

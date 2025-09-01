@@ -1,12 +1,19 @@
 stages:
   - build
   - test
+  - sonarqube
   - docker-build
   - deploy
 
 variables:
   JAVA_TAG: "latest"
   PYTHON_TAG: "latest"
+
+sonarqube-test:
+  stage: sonarqube
+  image: sonarsource/sonar-scanner-cli
+  script: 
+    - sonar-scanner -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java/src,service-python
 
 spring-build-job:
   stage: build

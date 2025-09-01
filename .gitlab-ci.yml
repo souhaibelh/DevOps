@@ -12,9 +12,10 @@ variables:
 sonarqube-test:
   stage: sonarqube
   image: sonarsource/sonar-scanner-cli
-  dependencies: []
+  dependencies:
+    - spring-build-job
   script: 
-    - sonar-scanner -Dsonar.host.url=http://172.27.77.107:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java -Dsonar.projectKey=service-java
+    - sonar-scanner -Dsonar.host.url=http://172.27.77.107:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java -Dsonar.projectKey=service-java -Dsonar.java.binaries=service-java/target/classes
 
 spring-build-job:
   stage: build

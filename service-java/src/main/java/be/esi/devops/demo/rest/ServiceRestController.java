@@ -17,7 +17,7 @@ public class ServiceRestController {
     @GetMapping("/proxy")
     public ResponseEntity<String> getMessageFromFlask() {
         try {
-            /* asd */
+            /* asdsad */
             RestTemplate restTemplate = new RestTemplate();
             String url = flaskUrl + "/api/message";
             String response = restTemplate.getForObject(url, String.class);

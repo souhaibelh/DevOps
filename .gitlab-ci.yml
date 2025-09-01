@@ -14,7 +14,7 @@ sonarqube-test:
   image: sonarsource/sonar-scanner-cli
   dependencies: []
   script: 
-    - sonar-scanner -Dsonar.host.url=http://172.27.77.107:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java/src,service-python
+    - sonar-scanner -Dsonar.host.url=http://172.27.77.107:9000 -Dsonar.login=$SONAR_TOKEN -Dsonar.sources=service-java -Dsonar.projectKey=service-java
 
 spring-build-job:
   stage: build

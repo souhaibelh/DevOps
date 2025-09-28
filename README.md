@@ -76,7 +76,7 @@ Make sure you have the following installed on your system:
         - ```ports: "localPort:5000"```
 
 ### Deployment
-- To implement CI/CD the project must be pushed to **GitLab**, you will also need the following variables defined for it to work:
+- To implement CI/CD the project must be pushed to **GitLab**, you will need to setup a **Gitlab Runner** that uses Docker and also need the following variables defined for it to work:
   - For **Azure**, using Service Principal:
     - `AZURE_CLIENT_ID`: Azure Service Principal's Application ID
     - `AZURE_CLIENT_SECRET`: Service Principal's client secret

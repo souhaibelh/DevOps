@@ -1,6 +1,6 @@
 # DevOps
 A DevOps-focused project demonstrating Dockerized microservices with CI/CD pipelines and Terraform deployment to Azure.  
-Both the Flask (Python) and Spring Boot (Java) services are minimal — the project highlights **infrastructure automation and delivery workflows**.
+Both the Flask (Python) and Spring Boot (Java) services are minimal, the project highlights **infrastructure automation and delivery workflows**.
 
 ## Table of Contents
 - [About](#about)

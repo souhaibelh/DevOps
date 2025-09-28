@@ -78,19 +78,19 @@ Make sure you have the following installed on your system:
 ### Deployment
 - To implement CI/CD the project must be pushed to **GitLab**, you will also need the following variables defined for it to work:
   - For **Azure**, using Service Principal:
-    - AZURE_CLIENT_ID: Azure Service Principal's Application ID
-    - AZURE_CLIENT_SECRET: Service Principal's client secret
-    - AZURE_SUBSCRIPTION_ID: Azure subscription ID where resources will be managed
-    - AZURE_TENANT_ID: Azure Active Directory tenant ID
-    - DNS_NAME: Domain used to access the services, instead of IP, once terraform script is finished running head to Azure portal and check the domain of the container instance
+    - `AZURE_CLIENT_ID`: Azure Service Principal's Application ID
+    - `AZURE_CLIENT_SECRET`: Service Principal's client secret
+    - `AZURE_SUBSCRIPTION_ID`: Azure subscription ID where resources will be managed
+    - `AZURE_TENANT_ID`: Azure Active Directory tenant ID
+    - `DNS_NAME`: Domain used to access the services, instead of IP, once terraform script is finished running head to Azure portal and check the domain of the container instance
   - For **Docker**:
-    - DOCKER_PASSWORD: Your own docker password (deprecated, you should use a Personal Access Token)
-    - DOCKER_TERRAFORM_PASSWORD: Your own docker password (deprecated, you should use a Personal Access Token), the reason this field exists is because I wanted to put my password in DOCKER_PASSWORD and a Personal Access Token in DOCKER_TERRAFORM_PASSWORD
-    - DOCKER_USERNAME: Your docker username
-    - JAVA_IMAGE_NAME: The name you want to give to your java image
-    - PYTHON_IMAGE_NAME: The name you want ot give to your python image
+    - `DOCKER_PASSWORD`: Your own docker password (deprecated, you should use a Personal Access Token)
+    - `DOCKER_TERRAFORM_PASSWORD`: Your own docker password (deprecated, you should use a Personal Access Token), the reason this field exists is because I wanted to put my password in **DOCKER_PASSWORD** and a Personal Access Token in **DOCKER_TERRAFORM_PASSWORD**
+    - `DOCKER_USERNAME`: Your docker username
+    - `JAVA_IMAGE_NAME`: The name you want to give to your java image
+    - `PYTHON_IMAGE_NAME`: The name you want ot give to your python image
   - For **Sonarqube**:
-    - SONAR_TOKEN: Token used for code quality analysis in SonarQube (java service only)
+    - `SONAR_TOKEN`: Token used for code quality analysis in SonarQube (java service only)
 
 ### Usage
 - Developer pushes a commit to the repo, CI/CD Pipeline will run
